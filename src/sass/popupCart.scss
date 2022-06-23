@@ -1,0 +1,31 @@
+.popup-product{
+    min-width: 633px;
+    font-weight: 700;
+    padding: 16px 14px;
+
+    &__items{
+        margin-top: 6px;
+    }
+
+    &__item{
+        display: flex;
+        padding: 22px 0;
+        border-bottom: 1px solid #EEEEEE;
+        img{
+            width: 138px;
+            height: 97px;
+        }
+    }
+
+    &__description{
+        padding: 10px 22px;
+    }
+
+    &__button{
+        border: none;
+        background-color: inherit;
+        padding: 7px 0;
+        color: #FF6969;
+        font-weight: 700;
+    }
+}
