@@ -8,7 +8,7 @@ export default function Main() {
         <div className='main'>
             <CategorySidebar />
             <ProductsPanel />
-            {/* <EmptyStub /> */}
+            {/* <EmptyStub text={"В данной категории товаров пока нет"}/> */}
         </div>
     )
 }

@@ -1,7 +1,13 @@
 import { Offcanvas, Row, Col } from 'react-bootstrap';
-import React from 'react';
+import React, { useState } from 'react';
+import EmptyStub from '../EmptyStub';
 
 export default function PopupCart({show, onHide}) {
+  const [formValue, setFormValue] = useState({name : "", tel: "", address: ""});
+
+  function changeFormValue(event) {
+    setFormValue({ ...formValue, [event.target.name]: event.target.value })
+  }
 
   return (
     <>
@@ -29,30 +35,37 @@ export default function PopupCart({show, onHide}) {
               </div>
             </div>
           </div>
-          <form className='cart-form'>
+          <form className='form-popup'>
             <Row>
               <Col xs={6}>
                 <label>
                   <div>Имя</div>
-                  <input type='text' name='name' className='input-name' />
+                  <input type='text' name='name' className='input-name' value={formValue.name} onChange={changeFormValue}/>
                 </label>
               </Col>
               <Col xs={6}>
                 <label>
                   <div>Телефон</div>
-                  <input type='tel' name='tel' className='input-tel' />
+                  <input type='tel' name='tel' className='input-tel' value={formValue.tel} onChange={changeFormValue}/>
                 </label>
               </Col>
               <Col xs={12}>
                 <label className='label-address'>
                   <div>Полный адрес</div>
-                  <input type='text' name='address' className='input-address' />
+                  <input type='text' name='address' className='input-address' value={formValue.address} onChange={changeFormValue}/>
                 </label>
               </Col>
             </Row>
             <button className='product-card__button'>Заказать</button>
           </form>
         </Offcanvas.Body>
+        {/* <EmptyStub text={"В корзине ничего нет"}/>
+        <div className='empty-stub'>
+            <div className='empty-stub__wrapper'>
+                <img src="/img/Vector.png"></img>
+                <div className='empty-stub__text'>Заказ успешно создан</div>
+            </div>
+        </div> */}
       </Offcanvas>
     </>
   );

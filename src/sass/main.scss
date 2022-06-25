@@ -23,7 +23,7 @@
         flex-direction: column;
         align-items: center;
     }
-    img{
+    &__img{
         width: 99px;
         height: 99px;
     }
@@ -80,12 +80,13 @@
     }
 }
 
-.cart-form{
+.form-popup{
     margin-top: 70px;
     font-weight: 400;
     
-    input{
+    input, .input-feedback{
         height: 40px;
+        width: inherit;
         min-width: 275px;
         border: 1px solid #898989;
         border-radius: 5px;
@@ -100,4 +101,9 @@
 
 .input-address{
     width: inherit;
+}
+
+.input-feedback{
+    min-height: 175px;
+    resize: none;
 }

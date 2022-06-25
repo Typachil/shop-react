@@ -1,0 +1,64 @@
+.popup-tabs {
+    font-weight: 400;
+
+    &__links {
+        .active {
+            border-color: #FF6969;
+            color: #424242;
+        }
+    }
+
+    &__link {
+        color: #424242;
+        padding: 0;
+        margin: 40px 20px 13px 0;
+        border-bottom: 3px solid #E4E2E2;
+        cursor: pointer;
+
+        &:focus {
+            border-color: #FF6969;
+        }
+
+        &:hover{
+            color: #424242b2;
+        }
+    }
+
+    &__feature {
+
+        &_gray {
+            background-color: #F3F3F3;
+        }
+    }
+
+    .star-rating {
+        gap: 4px;
+    }
+      
+    .c-star {
+        width: var(--size, 18px);
+        height: var(--size, 18px);
+        fill: white;
+      
+        &.active {
+          border-color: #F1C450;
+        }
+    }
+
+}
+
+.popup-review {
+    display: flex;
+
+    &__name{
+        color: #000000;
+    }
+
+    &__text{
+        padding: 14px;
+        font-size: 14px;
+        background-color: #F3F3F3;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+        border-radius: 7px;
+    }
+}

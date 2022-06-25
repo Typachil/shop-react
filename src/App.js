@@ -5,6 +5,7 @@ import './css/App.css';
 import './css/header.css';
 import './css/main.css';
 import './css/popupCart.css';
+import './css/popupInfo.css';
 
 function App() {
   return (
