@@ -7,6 +7,7 @@ import {useState, useCallback} from 'react'
  * @param {function} request - Функция, которая создает запрос по переданным параметрам
  * @param {function} clearError - Функция, которая отчищает ошибки
  */
+
 export default function useHttp(){
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

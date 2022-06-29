@@ -15,6 +15,10 @@ import useHttp from './hooks/useHttp';
   const {products} = useContext(Context);
   const { loading, request, error, clearError } = useHttp();
 
+  /**
+   * useEffect отправляет запрос на получение всех продуктов и категорий
+   * После полученные данные фильтруются и добавляются в хранилище ProductStore
+   */
   useEffect(() => {
     request('http://test1.web-gu.ru/').then(data => {
       products.setСategories(data.filter(item => item.parent_id < 0));
@@ -23,9 +27,7 @@ import useHttp from './hooks/useHttp';
 
       products.setCurrentСategory(products.categories[0]);
       products.setCurrentType(products.types.filter(item => item.parent_id == products.currentСategory.id)[0]);
-      console.log(data)
     });
-    console.log(products);
   },[])
 
   return (

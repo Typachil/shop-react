@@ -14,7 +14,6 @@ const Header = observer(() => {
     function changeCurrentCategory(item){
         products.setCurrentСategory(item);
         products.setCurrentType(products.types.filter(item => item.parent_id == products.currentСategory.id)[0]);
-        console.log(products.currentСategory)
     }
     
     return (
@@ -31,12 +30,12 @@ const Header = observer(() => {
                         if(id == products.currentСategory.id) style += ' header-nav__category_active';
 
                         return (
-                            <a tabindex="0" href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></a>
+                            <a tabIndex="0" href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></a>
                         )
                     })}
                 </div>
             </div>
-            <a tabindex="1" className='header__cart' onClick={() => setShowCart(!showCart)}>
+            <a tabIndex="1" className='header__cart' onClick={() => setShowCart(!showCart)}>
                 <img src="img/Cart.png" alt="Корзина"></img>
                 {!products.cart.length || <div className='header__cart-number'>{products.cart.length}</div>}
             </a>

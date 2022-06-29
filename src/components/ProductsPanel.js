@@ -24,7 +24,6 @@ const ProductsPanel = observer(({ productsArray }) => {
         }else{
             products.setCartProduct(item);
         }
-        console.log(products.cart)
         localStorage.setItem('Cart', JSON.stringify(products.cart))
     } 
     return (
