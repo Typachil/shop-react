@@ -84,6 +84,12 @@
         margin-top: 35px;
         padding: 8px 22px;
         border: none;
+
+        img{
+           width: 22px; 
+           height: 17px;
+           margin-left: 10px;
+        }
     }
 }
 
@@ -113,4 +119,9 @@
 .input-feedback{
     min-height: 175px;
     resize: none;
+}
+
+.input_warning{
+    color: #FF6969;
+    font-size: 14px;
 }

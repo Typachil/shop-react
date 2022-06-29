@@ -6,12 +6,36 @@ import useHttp from '../../hooks/useHttp';
 export default function PopupInfo({ id, show, onHide }) {
     const { loading, request, error, clearError } = useHttp();
     const [infoProduct, setInfoProduct] = useState({});
+    const [formName, setFormName] = useState({ name: "", nameValid: false });
+    const [formFeedback, setFormFeedback] = useState({ feedback: "", feedbackValid: false });
+    const [formRate, setFormRate] = useState(0)
 
     useEffect(() => {
         request(`http://test1.web-gu.ru/?action=show_product&id=${id}`).then(data => setInfoProduct(data));
-        console.log(infoProduct);
-        console.log(loading)
-    }, [id])
+    }, [id]);
+
+    function submitForm(event) {
+        event.preventDefault();
+        if(formName.nameValid && formFeedback.feedbackValid){
+            infoProduct.reviews.push({author : formName.name, avatar: "img/Avatar.png", rate: formRate, text: formFeedback.feedback});
+            setInfoProduct(infoProduct);
+            setFormName({name: "", nameValid: false});
+            setFormFeedback({feedback: "", feedbackValid: false});
+            setFormRate(0);
+        }
+    }
+
+    function validInput(value) {
+        return value.length > 0;
+    }
+
+    function changeFormName(event) {
+        setFormName({ 'name': event.target.value, 'nameValid': validInput(event.target.value) });
+    }
+
+    function changeFormFeedback(event) {
+        setFormFeedback({ 'feedback': event.target.value, 'feedbackValid': validInput(event.target.value) });
+    }
 
     return (
         <>
@@ -43,7 +67,7 @@ export default function PopupInfo({ id, show, onHide }) {
                                         if (index % 2 !== 0) style += ' popup-tabs__feature popup-tabs__feature_gray';
 
                                         return (
-                                            <div className={style}>
+                                            <div key={index} className={style}>
                                                 <div>{caption}</div>
                                                 <div>{value} {measure}</div>
                                             </div>
@@ -51,17 +75,17 @@ export default function PopupInfo({ id, show, onHide }) {
                                     })}
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="reviews">
-                                    {infoProduct.reviews && infoProduct.reviews.map(item => {
-                                        let {author, avatar, rate, text} = item;
+                                    {infoProduct.reviews && infoProduct.reviews.map((item, index) => {
+                                        let { author, avatar, rate, text } = item;
                                         return (
-                                            <div className='popup-review'>
+                                            <div className='popup-review' key={index}>
                                                 <div className='me-2'>
                                                     <img src={avatar} />
                                                 </div>
-                                                <div>
+                                                <div style={{width: "100%"}}>
                                                     <div className='d-flex justify-content-between'>
                                                         <div className='popup-review__name'>{author}</div>
-                                                        <Stars rate={rate}/>
+                                                        <Stars rate={rate} />
                                                     </div>
                                                     <div className='popup-review__text'>{text}</div>
                                                 </div>
@@ -69,19 +93,21 @@ export default function PopupInfo({ id, show, onHide }) {
                                     })}
                                 </Tab.Pane>
                                 <Tab.Pane className='popup-tabs__feedback' eventKey="feedback">
-                                    <form className='form-popup mt-2'>
+                                    <form className='form-popup mt-2' onSubmit={submitForm}>
                                         <div>
                                             <div>
                                                 Оценка
                                             </div>
-                                            <Stars />
+                                            <Stars rate={formRate} setRate={setFormRate} />
                                         </div>
                                         <div>
                                             <label className='w-100'>
                                                 <div>
                                                     Имя
                                                 </div>
-                                                <input type='text' name='name' className='input-name' />
+                                                <input type='text' name='name' className='input-name'
+                                                    value={formName.name} onChange={changeFormName} style={{ borderColor: !formName.nameValid && '#FF6969' }} />
+                                                {!formName.nameValid && <div className='input_warning'>Имя не должно быть пустым</div>}    
                                             </label>
                                         </div>
                                         <div className='mt-3'>
@@ -89,7 +115,11 @@ export default function PopupInfo({ id, show, onHide }) {
                                                 <div>
                                                     Отзыв
                                                 </div>
-                                                <textarea className='input-feedback' name='feedback' ></textarea>
+                                                <textarea className='input-feedback' name='feedback' 
+                                                    defaultValue={formFeedback.feedback} onChange={changeFormFeedback} 
+                                                    style={{ borderColor: !formFeedback.feedbackValid && '#FF6969' }}>      
+                                                </textarea>
+                                                {!formFeedback.feedbackValid && <div className='input_warning'>Отзыв не должен быть пустым</div>}
                                             </label>
                                         </div>
                                         <button className='product-card__button'>Отправить отзыв</button>

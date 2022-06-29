@@ -45,11 +45,21 @@
         }
     }
 
+    &__feedback{
+        .c-star{
+            cursor: pointer;
+        }
+    }
+
 }
 
 .popup-review {
     display: flex;
     margin-bottom: 30px;
+
+    &__rate{
+        margin-top: 10px;
+    }
 
     &__name{
         color: #000000;

@@ -41,7 +41,7 @@ const ProductsPanel = observer(({ productsArray }) => {
                                 <div className='product-card__name' onClick={() => changeShowInfo(id)}>{name}</div>
                                 <div className='product-card__price'>{price} &nbsp;</div>
                                 <button onClick={() => pushProductToCart(item)} className='product-card__button'>
-                                    {!findItemInCart(item.id).length ? "Добавить в корзину" : "В корзине"}
+                                    {!findItemInCart(item.id).length ? "Добавить в корзину" : <div>В корзине <img src="img/Vector_small.png"></img></div>}
                                 </button>
                             </div>
                         </Col>

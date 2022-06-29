@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 
 const Header = observer(() => {
     const [showCart, setShowCart] = useState(false);
-    // const [cartItems, setCartItems] = useState([]);
     const {products} = useContext(Context);
 
     useEffect(() => {
@@ -32,15 +31,15 @@ const Header = observer(() => {
                         if(id == products.currentСategory.id) style += ' header-nav__category_active';
 
                         return (
-                            <a href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></a>
+                            <a tabindex="0" href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></a>
                         )
                     })}
                 </div>
             </div>
-            <div className='header__cart' onClick={() => setShowCart(!showCart)}>
+            <a tabindex="1" className='header__cart' onClick={() => setShowCart(!showCart)}>
                 <img src="img/Cart.png" alt="Корзина"></img>
-                <div className='header__cart-number'>{products.cart.length}</div>
-            </div>
+                {!products.cart.length || <div className='header__cart-number'>{products.cart.length}</div>}
+            </a>
             <PopupCart show={showCart} onHide={() => setShowCart(!showCart)} />
         </div>
     )

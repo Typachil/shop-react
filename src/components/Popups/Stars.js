@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Stars({ rate }) {
+export default function Stars({ rate, setRate = () => {} }) {
     const rating = [1, 2, 3, 4, 5];
 
     return (
@@ -19,7 +19,7 @@ export default function Stars({ rate }) {
                     let color = "#F1C450";
                     if (item > rate) color = '#E4E4E4';
                     return (
-                        <svg className="c-star active" viewBox="0 0 32 32">
+                        <svg key={item} className="c-star active" viewBox="0 0 32 32" onClick={() => setRate(item)}>
                             <use xlinkHref="#star" fill="none" stroke={color} strokeWidth="3"></use>
                         </svg>
                     )

@@ -1,5 +1,15 @@
 import {makeAutoObservable} from "mobx";
 
+/**
+ * MobX хранилище состояния сайта
+ * @constructor
+ * @param {array} _categories - Родительские категории магазина
+ * @param {array} _types - Подгатегории магазина
+ * @param {array} _products - Товары магазина
+ * @param {array} _cart - Корзина пользователя
+ * @param {object} _currentCategory - Текущая родительская категория выбранная пользователем
+ * @param {object} _currentType - Текущая подкатегория
+ */
 export default class ProductStore {
     constructor(){
         this._categories = [];

@@ -32,10 +32,16 @@
 .popup-tabs .c-star.active {
   border-color: #F1C450;
 }
+.popup-tabs__feedback .c-star {
+  cursor: pointer;
+}
 
 .popup-review {
   display: flex;
   margin-bottom: 30px;
+}
+.popup-review__rate {
+  margin-top: 10px;
 }
 .popup-review__name {
   color: #000000;

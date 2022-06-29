@@ -14,7 +14,7 @@ const Main = observer(() => {
             <CategorySidebar />
             {productsArray.length ? 
             <ProductsPanel productsArray={productsArray} /> : 
-            <EmptyStub text={"В данной категории товаров пока нет"}/>}
+            <EmptyStub text={"В данной категории товаров пока нет"} img={"Cart.png"}/>}
         </div>
     )
 })
