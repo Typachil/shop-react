@@ -1,12 +1,30 @@
 import { Offcanvas, Row, Col } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import EmptyStub from '../EmptyStub';
+import useHttp from '../../hooks/useHttp';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../..';
 
-export default function PopupCart({show, onHide}) {
-  const [formValue, setFormValue] = useState({name : "", tel: "", address: ""});
+const PopupCart = observer(({ show, onHide}) => {
+  const { loading, request, error, clearError } = useHttp();
+  const {products} = useContext(Context);
+  const [formName, setFormName] = useState({name : "", tel: "", address: ""});
+  const [formTel, setFormTel] = useState({name : "", tel: "", address: ""});
+  const [formAddress, setFormAddress] = useState({name : "", tel: "", address: ""});
+
+  function submitForm(event){
+    event.preventDefault(); 
+    request('http://test1.web-gu.ru/?action=send_form').then(data => console.log(data));
+    console.log(loading);
+  }
 
   function changeFormValue(event) {
     setFormValue({ ...formValue, [event.target.name]: event.target.value })
+  }
+
+  function deleteProductFromCart(id){
+    products.deleteCart(id);
+    localStorage.setItem('Cart', JSON.stringify(products.cart));
   }
 
   return (
@@ -15,27 +33,22 @@ export default function PopupCart({show, onHide}) {
         <Offcanvas.Header closeButton>
           Оформить заказ
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        {products.cart.length ? <Offcanvas.Body>
           В корзине:
           <div className='popup-product__items'>
-            <div className='popup-product__item'>
-              <img src="img/Chair.png" alt="Фото товара" />
-              <div className='popup-product__description'>
-                <div className='product-card__name'>Стул рабочий</div>
-                <div className='product-card__price'>6 000 &nbsp;</div>
-                <button className='popup-product__button'>Убрать из корзины</button>
-              </div>
-            </div>
-            <div className='popup-product__item'>
-              <img src="img/Chair.png" alt="Фото товара" />
-              <div className='popup-product__description'>
-                <div className='product-card__name'>Стул рабочий</div>
-                <div className='product-card__price'>6 000 &nbsp;</div>
-                <button className='popup-product__button'>Убрать из корзины</button>
-              </div>
-            </div>
+            {products.cart.map((item) => {
+              let {id, name, price, img} = item;
+              return (<div className='popup-product__item' key={id}>
+                <img src={img} alt="Фото товара" />
+                <div className='popup-product__description'>
+                  <div className='product-card__name'>{name}</div>
+                  <div className='product-card__price'>{price} &nbsp;</div>
+                  <button className='popup-product__button' onClick={() => deleteProductFromCart(id)}>Убрать из корзины</button>
+                </div>
+              </div>)
+            })}
           </div>
-          <form className='form-popup'>
+          <form className='form-popup' onSubmit={submitForm}>
             <Row>
               <Col xs={6}>
                 <label>
@@ -58,9 +71,10 @@ export default function PopupCart({show, onHide}) {
             </Row>
             <button className='product-card__button'>Заказать</button>
           </form>
-        </Offcanvas.Body>
-        {/* <EmptyStub text={"В корзине ничего нет"}/>
-        <div className='empty-stub'>
+        </Offcanvas.Body> :
+        <EmptyStub text={"В корзине ничего нет"}/>
+        }
+        {/* <div className='empty-stub'>
             <div className='empty-stub__wrapper'>
                 <img src="/img/Vector.png"></img>
                 <div className='empty-stub__text'>Заказ успешно создан</div>
@@ -69,4 +83,6 @@ export default function PopupCart({show, onHide}) {
       </Offcanvas>
     </>
   );
-}
+})
+
+export default PopupCart;

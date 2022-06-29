@@ -11,7 +11,7 @@
     &__link {
         color: #424242;
         padding: 0;
-        margin: 40px 20px 13px 0;
+        margin: 40px 20px 16px 0;
         border-bottom: 3px solid #E4E2E2;
         cursor: pointer;
 
@@ -49,6 +49,7 @@
 
 .popup-review {
     display: flex;
+    margin-bottom: 30px;
 
     &__name{
         color: #000000;

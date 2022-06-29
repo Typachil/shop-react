@@ -1,28 +1,56 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
+import { Context } from '..';
 import PopupInfo from './Popups/PopupInfo';
+import { observer } from 'mobx-react-lite';
 
-export default function ProductsPanel() {
+const ProductsPanel = observer(({ productsArray }) => {
+    const {products} = useContext(Context);
     const [showInfo, setShowInfo] = useState(false);
+    const [productId, setProductId] = useState(null);
 
-    function changeShowInfo(){
-        setShowInfo(!showInfo)
+    function changeShowInfo(id) {
+        setShowInfo(!showInfo);
+        setProductId(id)
     }
+
+    function findItemInCart(id){
+        return products.cart.filter(item => id === item.id);
+    }
+
+    function pushProductToCart(item){
+        if(findItemInCart(item.id).length){
+            products.deleteCart(item.id);
+        }else{
+            products.setCartProduct(item);
+        }
+        console.log(products.cart)
+        localStorage.setItem('Cart', JSON.stringify(products.cart))
+    } 
     return (
         <>
             <Row className='products'>
-                <Col className="product-card">
-                    <div className='product-card__img' onClick={changeShowInfo}>
-                        <img src="/img/Chair.png" alt="Фото товара"></img>
-                    </div>
-                    <div className='product-card__description'>
-                        <div className='product-card__name' onClick={changeShowInfo}>Стул рабочий</div>
-                        <div className='product-card__price'>6 000 &nbsp;</div>
-                        <button className='product-card__button'>Добавить в корзину</button>
-                    </div>
-                </Col>
+                {productsArray.map((item) => {
+                    let { id, img, name, price } = item;
+                    return (
+                        <Col className="product-card" key={id}>
+                            <div className='product-card__img' onClick={() => changeShowInfo(id)}>
+                                <img src={img} alt="Фото товара"></img>
+                            </div>
+                            <div className='product-card__description'>
+                                <div className='product-card__name' onClick={() => changeShowInfo(id)}>{name}</div>
+                                <div className='product-card__price'>{price} &nbsp;</div>
+                                <button onClick={() => pushProductToCart(item)} className='product-card__button'>
+                                    {!findItemInCart(item.id).length ? "Добавить в корзину" : "В корзине"}
+                                </button>
+                            </div>
+                        </Col>
+                    )
+                })}
             </Row>
-            <PopupInfo show={showInfo} onHide={changeShowInfo}/>
+            <PopupInfo id={productId} show={showInfo} onHide={changeShowInfo} />
         </>
     )
-}
+})
+
+export default ProductsPanel;

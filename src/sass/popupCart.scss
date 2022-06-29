@@ -3,6 +3,13 @@
     font-weight: 700;
     padding: 16px 14px;
 
+    &__img-large{
+        width: 565px;
+        height: 340px;
+        border-radius: 10px;
+        border: 1px solid #E6E6E6;
+    }
+
     &__items{
         margin-top: 6px;
     }

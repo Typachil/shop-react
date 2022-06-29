@@ -10,8 +10,13 @@
     background-color: #FFFFFF;
     align-self: stretch;
     &__items{
+        cursor: pointer;
         border-bottom: 1px solid #E4E4E4;
         padding: 20px 0 15px 30px;
+
+        &_active{
+            color: #FF6969;
+        }
     }
 }
 
@@ -51,6 +56,8 @@
 
     img{
         cursor: pointer;
+        width: 353px;
+        height: 246px;
     }
 
     &__name{

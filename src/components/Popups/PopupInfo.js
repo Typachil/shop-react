@@ -1,8 +1,18 @@
 import { Offcanvas, Tab, Nav } from 'react-bootstrap';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Stars from './Stars';
+import useHttp from '../../hooks/useHttp';
 
-export default function PopupInfo({ show, onHide }) {
+export default function PopupInfo({ id, show, onHide }) {
+    const { loading, request, error, clearError } = useHttp();
+    const [infoProduct, setInfoProduct] = useState({});
+
+    useEffect(() => {
+        request(`http://test1.web-gu.ru/?action=show_product&id=${id}`).then(data => setInfoProduct(data));
+        console.log(infoProduct);
+        console.log(loading)
+    }, [id])
+
     return (
         <>
             <Offcanvas className='popup-product' show={show} onHide={onHide} placement={'end'}>
@@ -10,9 +20,9 @@ export default function PopupInfo({ show, onHide }) {
                     Информация
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <img className='mb-4' src="img/Chair_info.png" alt="Фото товара" />
-                    <div className='product-card__name'>Стул рабочий</div>
-                    <div className='product-card__price'>6 000 &nbsp;</div>
+                    <img className='mb-4 popup-product__img-large' src={infoProduct.img} alt="Фото товара" />
+                    <div className='product-card__name'>{infoProduct.name}</div>
+                    <div className='product-card__price'>{infoProduct.price} &nbsp;</div>
                     <Tab.Container id="left-tabs-example" defaultActiveKey="desc">
                         <div className='popup-tabs'>
                             <Nav className="flex popup-tabs__links">
@@ -23,31 +33,40 @@ export default function PopupInfo({ show, onHide }) {
                             </Nav>
                             <Tab.Content>
                                 <Tab.Pane className='popup-tabs__desc' eventKey="desc">
-                                    VIKING A3 - удобное кресло, которое станет удачным выбором для домашнего использования и для офиса. Кресло выдерживает нагрузку до 181 кг. Высота сиденья регулируется при помощи надежного механизма. Спинка качается, при желании ее можно прочно зафиксировать в вертикальном положении. Эргономичная конструкция помогает снизить нагрузку на мышцы и уменьшить усталость от долгой работы за компьютером. Кресло закреплено на прочной и устойчивой
+                                    {infoProduct.descr}
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="feature">
-                                    <div className='d-flex justify-content-between p-2 popup-tabs__feature popup-tabs__feature_gray'>
-                                        <div>Высота</div>
-                                        <div>50 мм</div>
-                                    </div>
-                                    <div className='d-flex justify-content-between p-2'>
-                                        <div>Ширина</div>
-                                        <div>60 мм</div>
-                                    </div>
+                                    {infoProduct.props && Object.keys(infoProduct.props).map((prop, index) => {
+                                        let { caption, value, measure } = infoProduct.props[prop];
+                                        let style = "d-flex justify-content-between p-2";
+                                        index++;
+                                        if (index % 2 !== 0) style += ' popup-tabs__feature popup-tabs__feature_gray';
+
+                                        return (
+                                            <div className={style}>
+                                                <div>{caption}</div>
+                                                <div>{value} {measure}</div>
+                                            </div>
+                                        )
+                                    })}
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="reviews">
-                                    <div className='popup-review'>
-                                        <div className='me-2'>
-                                            <img src='img/Avatar.png' />
-                                        </div>
-                                        <div>
-                                            <div className='d-flex justify-content-between'>
-                                                <div className='popup-review__name'>Олег Олегов</div>
-                                                <Stars/>
-                                            </div>
-                                            <div className='popup-review__text'>Он подходит именно для питья, для утоления жажды. Этот квас сильногазированный. После вскрытия бутылки газ сохраняется в ней в течении суток. Квас сладкий, послевкусие придаёт небольшую кислинку. Квас тёмного цвета.</div>
-                                        </div>
-                                    </div>
+                                    {infoProduct.reviews && infoProduct.reviews.map(item => {
+                                        let {author, avatar, rate, text} = item;
+                                        return (
+                                            <div className='popup-review'>
+                                                <div className='me-2'>
+                                                    <img src={avatar} />
+                                                </div>
+                                                <div>
+                                                    <div className='d-flex justify-content-between'>
+                                                        <div className='popup-review__name'>{author}</div>
+                                                        <Stars rate={rate}/>
+                                                    </div>
+                                                    <div className='popup-review__text'>{text}</div>
+                                                </div>
+                                            </div>)
+                                    })}
                                 </Tab.Pane>
                                 <Tab.Pane className='popup-tabs__feedback' eventKey="feedback">
                                     <form className='form-popup mt-2'>
@@ -55,7 +74,7 @@ export default function PopupInfo({ show, onHide }) {
                                             <div>
                                                 Оценка
                                             </div>
-                                            <Stars/>
+                                            <Stars />
                                         </div>
                                         <div>
                                             <label className='w-100'>
@@ -71,7 +90,6 @@ export default function PopupInfo({ show, onHide }) {
                                                     Отзыв
                                                 </div>
                                                 <textarea className='input-feedback' name='feedback' ></textarea>
-                                                {/* <input type='text' name='feedback' className='input-feedback' /> */}
                                             </label>
                                         </div>
                                         <button className='product-card__button'>Отправить отзыв</button>

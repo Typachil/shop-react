@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function Stars() {
+export default function Stars({ rate }) {
+    const rating = [1, 2, 3, 4, 5];
+
     return (
         <div className='popup-review__rate'>
             <div style={{ display: "none" }}>
@@ -12,22 +14,16 @@ export default function Stars() {
                     </defs>
                 </svg>
             </div>
-            <p className="star-rating" aria-label="4.5 stars out of 5">
-                <svg className="c-star active" viewBox="0 0 32 32">
-                    <use xlinkHref="#star" fill="none" stroke="#F1C450" strokeWidth="3"></use>
-                </svg>
-                <svg className="c-star active" viewBox="0 0 32 32">
-                    <use xlinkHref="#star" fill="none" stroke="#F1C450" strokeWidth="3"></use>
-                </svg>
-                <svg className="c-star active" viewBox="0 0 32 32">
-                    <use xlinkHref="#star" fill="none" stroke="#F1C450" strokeWidth="3"></use>
-                </svg>
-                <svg className="c-star active" viewBox="0 0 32 32">
-                    <use xlinkHref="#star" fill="none" stroke="#F1C450" strokeWidth="3"></use>
-                </svg>
-                <svg className="c-star" viewBox="0 0 32 32">
-                    <use xlinkHref="#star" fill="none" stroke="#E4E4E4" strokeWidth="3"></use>
-                </svg>
+            <p className="star-rating" aria-label="stars">
+                {rating.map(item => {
+                    let color = "#F1C450";
+                    if (item > rate) color = '#E4E4E4';
+                    return (
+                        <svg className="c-star active" viewBox="0 0 32 32">
+                            <use xlinkHref="#star" fill="none" stroke={color} strokeWidth="3"></use>
+                        </svg>
+                    )
+                })}
             </p>
         </div>
     )

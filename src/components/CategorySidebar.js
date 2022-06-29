@@ -1,12 +1,32 @@
-import React from 'react'
-import { Col } from 'react-bootstrap'
+import React, { useContext, useEffect } from 'react';
+import { Context } from '..';
+import { observer } from 'mobx-react-lite';
 
-export default function CategorySidebar() {
+const CategorySidebar = observer(() => {
+  const { products } = useContext(Context);
+  let types = products.types.filter(item => item.parent_id == products.currentСategory.id);
+
+  // useEffect(() => {
+  //   products.setCurrentType(types[0]);
+  //   console.log('Категория поменялась')
+  // }, products.currentСategory)
+
+
   return (
     <div className='column-category'>
-        <div className='column-category__items'>Стулья</div>
-        <div className='column-category__items'>Диваны</div>
-        <div className='column-category__items'>Столы</div>
+      {types.map((item) => {
+        let { name, id } = item;
+        let style = 'column-category__items';
+        if (id == products.currentType.id) {
+          style += ' column-category__items_active';
+        }
+
+        return (
+          <div onClick={() => products.setCurrentType(item)} className={style} key={id}>{name}</div>
+        )
+      })}
     </div>
   )
-}
+})
+
+export default CategorySidebar;

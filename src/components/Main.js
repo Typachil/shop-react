@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import CategorySidebar from './CategorySidebar';
 import ProductsPanel from './ProductsPanel';
 import EmptyStub from './EmptyStub';
+import { Context } from '..';
+import { observer } from 'mobx-react-lite';
 
-export default function Main() {
+const Main = observer(() => {
+    const {products} = useContext(Context);
+    let productsArray = products.products.filter((item) => item.parent_id === products.currentType.id);
+
     return (
         <div className='main'>
             <CategorySidebar />
-            <ProductsPanel />
-            {/* <EmptyStub text={"В данной категории товаров пока нет"}/> */}
+            {productsArray.length ? 
+            <ProductsPanel productsArray={productsArray} /> : 
+            <EmptyStub text={"В данной категории товаров пока нет"}/>}
         </div>
     )
-}
+})
+
+export default Main;

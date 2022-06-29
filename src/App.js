@@ -1,4 +1,6 @@
+import { useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Context } from '.';
 import Header from './components/Header';
 import Main from './components/Main';
 import './css/App.css';
@@ -6,8 +8,26 @@ import './css/header.css';
 import './css/main.css';
 import './css/popupCart.css';
 import './css/popupInfo.css';
+import { observer } from 'mobx-react-lite';
+import useHttp from './hooks/useHttp';
 
-function App() {
+ const App = observer(() => {
+  const {products} = useContext(Context);
+  const { loading, request, error, clearError } = useHttp();
+
+  useEffect(() => {
+    request('http://test1.web-gu.ru/').then(data => {
+      products.setСategories(data.filter(item => item.parent_id < 0));
+      products.setTypes(data.filter(item => item.parent_id > 0 && !item.props));
+      products.setProduts(data.filter(item => item.parent_id > 0 && item.props));
+
+      products.setCurrentСategory(products.categories[0]);
+      products.setCurrentType(products.types.filter(item => item.parent_id == products.currentСategory.id)[0]);
+      console.log(data)
+    });
+    console.log(products);
+  },[])
+
   return (
     <BrowserRouter>
       <Header />
@@ -16,6 +36,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+})
 
 export default App;
