@@ -7,6 +7,7 @@
 
 .column-category{
     width: 325px;
+    min-width: 140px;
     background-color: #FFFFFF;
     align-self: stretch;
     &__items{
@@ -39,7 +40,8 @@
 }
 
 .products{
-    margin: 55px 40px 0 35px;
+    margin: 55px 0 0 35px;
+    flex-grow: 1;
 
     &__card{
         background-color: #FFFFFF;
@@ -49,6 +51,8 @@
 
 .product-card{
     border-radius: 10px;
+    max-width: 353px;
+    margin: 0 3vw 20px 0;
     &__description{
         background-color: #FFFFFF;
         padding: 20px 30px 30px 30px;
@@ -56,8 +60,8 @@
 
     img{
         cursor: pointer;
-        width: 353px;
-        height: 246px;
+        width: 100%;
+        height: 253px;
     }
 
     &__name{
@@ -94,7 +98,7 @@
 }
 
 .form-popup{
-    margin-top: 70px;
+    margin-top: 60px;
     font-weight: 400;
     
     input, .input-feedback{

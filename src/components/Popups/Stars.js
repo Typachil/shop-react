@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-export default function Stars({ rate, setRate = () => {} }) {
+const Stars = memo(({ rate, setRate = () => {} }) => {
     const rating = [1, 2, 3, 4, 5];
 
     return (
@@ -27,4 +27,6 @@ export default function Stars({ rate, setRate = () => {} }) {
             </p>
         </div>
     )
-}
+})
+
+export default Stars;

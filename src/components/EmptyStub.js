@@ -6,6 +6,7 @@ import { Spinner } from 'react-bootstrap'
  * или когда пользователь оформил заказ
  */
 export default function EmptyStub({ text, img, loading }) {
+    console.log("Отрендерилась заглушка")
     return (
         <div className='empty-stub'>
             <div className='empty-stub__wrapper'>

@@ -71,16 +71,16 @@ const PopupCart = observer(({ show, onHide }) => {
             </div>
             <form className='form-popup' onSubmit={submitForm}>
               <Row>
-                <Col xs={6}>
-                  <label>
+                <Col className='mt-3' sm={12} md={6}>
+                  <label className='w-100'>
                     <div>Имя</div>
                     <input type='text' name='name' className='input-name' style={{ borderColor: !formName.nameValid && '#FF6969' }}
                       value={formName.name} onChange={changeFormName} />
                     {!formName.nameValid && <div className='input_warning'>Имя не должно быть пустым</div>}
                   </label>
                 </Col>
-                <Col xs={6}>
-                  <label>
+                <Col className='mt-3' sm={12} md={6}>
+                  <label className='w-100'>
                     <div>Телефон</div>
                     <input type='tel' name='tel' className='input-tel' style={{ borderColor: !formTel.telValid && '#FF6969' }}
                       value={formTel.tel} onChange={changeFormTel} />

@@ -1,26 +1,29 @@
 import { Offcanvas, Tab, Nav } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import Stars from './Stars';
 import useHttp from '../../hooks/useHttp';
+import EmptyStub from '../EmptyStub';
 
-export default function PopupInfo({ id, show, onHide }) {
+const PopupInfo = ({ id, show, onHide }) => {
     const { loading, request, error, clearError } = useHttp();
     const [infoProduct, setInfoProduct] = useState({});
-    const [formName, setFormName] = useState({ name: "", nameValid: false });
-    const [formFeedback, setFormFeedback] = useState({ feedback: "", feedbackValid: false });
+    const [formName, setFormName] = useState({ name: "", nameValid: true });
+    const [formFeedback, setFormFeedback] = useState({ feedback: "", feedbackValid: true });
     const [formRate, setFormRate] = useState(0)
 
     useEffect(() => {
         request(`http://test1.web-gu.ru/?action=show_product&id=${id}`).then(data => setInfoProduct(data));
     }, [id]);
+    console.log("Отрендерилась информация")
 
     function submitForm(event) {
         event.preventDefault();
+        setFormName((prev) => ({ ...formName, nameValid: validInput(prev.name) }));
+        setFormFeedback((prev) => ({ ...formFeedback, feedbackValid: validInput(prev.feedback) }));   
         if(formName.nameValid && formFeedback.feedbackValid){
             infoProduct.reviews.push({author : formName.name, avatar: "img/Avatar.png", rate: formRate, text: formFeedback.feedback});
             setInfoProduct(infoProduct);
-            setFormName({name: "", nameValid: false});
-            setFormFeedback({feedback: "", feedbackValid: false});
+            
             setFormRate(0);
         }
     }
@@ -43,7 +46,7 @@ export default function PopupInfo({ id, show, onHide }) {
                 <Offcanvas.Header closeButton>
                     Информация
                 </Offcanvas.Header>
-                <Offcanvas.Body>
+                {!loading ? <Offcanvas.Body>
                     <img className='mb-4 popup-product__img-large' src={infoProduct.img} alt="Фото товара" />
                     <div className='product-card__name'>{infoProduct.name}</div>
                     <div className='product-card__price'>{infoProduct.price} &nbsp;</div>
@@ -128,8 +131,10 @@ export default function PopupInfo({ id, show, onHide }) {
                             </Tab.Content>
                         </div>
                     </Tab.Container>
-                </Offcanvas.Body>
+                </Offcanvas.Body> : <EmptyStub loading={loading} />}
             </Offcanvas>
         </>
     )
-}
+};
+
+export default PopupInfo;

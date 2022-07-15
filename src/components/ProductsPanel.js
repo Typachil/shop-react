@@ -32,7 +32,7 @@ const ProductsPanel = observer(({ productsArray }) => {
                 {productsArray.map((item) => {
                     let { id, img, name, price } = item;
                     return (
-                        <Col className="product-card" key={id}>
+                        <Col xl={6} xxl={4} lg={6} md={12} className="product-card" key={id}>
                             <div className='product-card__img' onClick={() => changeShowInfo(id)}>
                                 <img src={img} alt="Фото товара"></img>
                             </div>
