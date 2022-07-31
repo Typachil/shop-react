@@ -14,7 +14,6 @@ const PopupInfo = ({ id, show, onHide }) => {
     useEffect(() => {
         request(`http://test1.web-gu.ru/?action=show_product&id=${id}`).then(data => setInfoProduct(data));
     }, [id]);
-    console.log("Отрендерилась информация")
 
     function submitForm(event) {
         event.preventDefault();
