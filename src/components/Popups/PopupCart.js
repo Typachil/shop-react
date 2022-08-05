@@ -99,10 +99,10 @@ const PopupCart = observer(({ show, onHide }) => {
               <button className='product-card__button'>Заказать</button>
             </form>
           </Offcanvas.Body> :
-            <EmptyStub loading={loading}>
-              <img className='empty-stub__img' src={orderCreated ? "img/Vector.png" : "img/Cart.png"}></img>
-              <div className='empty-stub__text'>{orderCreated ? "Заказ успешно создан" : "В корзине ничего нет"} </div>
-            </EmptyStub>
+          <EmptyStub loading={loading}>
+            <img className='empty-stub__img' src={orderCreated ? "img/Vector.png" : "img/Cart.png"}></img>
+            <div className='empty-stub__text'>{orderCreated ? "Заказ успешно создан" : "В корзине ничего нет"} </div>
+          </EmptyStub>
         }
       </Offcanvas>
     </>

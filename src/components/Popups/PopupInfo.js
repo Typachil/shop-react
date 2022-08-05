@@ -1,5 +1,5 @@
 import { Offcanvas, Tab, Nav } from 'react-bootstrap';
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Stars from './Stars';
 import useHttp from '../../hooks/useHttp';
 import EmptyStub from '../EmptyStub';
@@ -18,11 +18,11 @@ const PopupInfo = ({ id, show, onHide }) => {
     function submitForm(event) {
         event.preventDefault();
         setFormName((prev) => ({ ...formName, nameValid: validInput(prev.name) }));
-        setFormFeedback((prev) => ({ ...formFeedback, feedbackValid: validInput(prev.feedback) }));   
-        if(formName.nameValid && formFeedback.feedbackValid){
-            infoProduct.reviews.push({author : formName.name, avatar: "img/Avatar.png", rate: formRate, text: formFeedback.feedback});
+        setFormFeedback((prev) => ({ ...formFeedback, feedbackValid: validInput(prev.feedback) }));
+        if (formName.nameValid && formFeedback.feedbackValid) {
+            infoProduct.reviews.push({ author: formName.name, avatar: "img/Avatar.png", rate: formRate, text: formFeedback.feedback });
             setInfoProduct(infoProduct);
-            
+
             setFormRate(0);
         }
     }
@@ -82,9 +82,9 @@ const PopupInfo = ({ id, show, onHide }) => {
                                         return (
                                             <div className='popup-review' key={index}>
                                                 <div className='me-2'>
-                                                    <img src={avatar} />
+                                                    <img src={avatar} alt='avatar' />
                                                 </div>
-                                                <div style={{width: "100%"}}>
+                                                <div style={{ width: "100%" }}>
                                                     <div className='d-flex justify-content-between'>
                                                         <div className='popup-review__name'>{author}</div>
                                                         <Stars rate={rate} />
@@ -109,7 +109,7 @@ const PopupInfo = ({ id, show, onHide }) => {
                                                 </div>
                                                 <input type='text' name='name' className='input-name'
                                                     value={formName.name} onChange={changeFormName} style={{ borderColor: !formName.nameValid && '#FF6969' }} />
-                                                {!formName.nameValid && <div className='input_warning'>Имя не должно быть пустым</div>}    
+                                                {!formName.nameValid && <div className='input_warning'>Имя не должно быть пустым</div>}
                                             </label>
                                         </div>
                                         <div className='mt-3'>
@@ -117,9 +117,9 @@ const PopupInfo = ({ id, show, onHide }) => {
                                                 <div>
                                                     Отзыв
                                                 </div>
-                                                <textarea className='input-feedback' name='feedback' 
-                                                    defaultValue={formFeedback.feedback} onChange={changeFormFeedback} 
-                                                    style={{ borderColor: !formFeedback.feedbackValid && '#FF6969' }}>      
+                                                <textarea className='input-feedback' name='feedback'
+                                                    defaultValue={formFeedback.feedback} onChange={changeFormFeedback}
+                                                    style={{ borderColor: !formFeedback.feedbackValid && '#FF6969' }}>
                                                 </textarea>
                                                 {!formFeedback.feedbackValid && <div className='input_warning'>Отзыв не должен быть пустым</div>}
                                             </label>

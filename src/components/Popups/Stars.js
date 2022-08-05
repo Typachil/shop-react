@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-const Stars = memo(({ rate, setRate = () => {} }) => {
+const Stars = memo(({ rate, setRate = () => { } }) => {
     const rating = [1, 2, 3, 4, 5];
 
     return (

@@ -5,7 +5,7 @@ import PopupInfo from './Popups/PopupInfo';
 import { observer } from 'mobx-react-lite';
 
 const ProductsPanel = observer(({ productsArray }) => {
-    const {products} = useContext(Context);
+    const { products } = useContext(Context);
     const [showInfo, setShowInfo] = useState(false);
     const [productId, setProductId] = useState(null);
 
@@ -14,18 +14,18 @@ const ProductsPanel = observer(({ productsArray }) => {
         setProductId(id)
     }
 
-    function findItemInCart(id){
+    function findItemInCart(id) {
         return products.cart.filter(item => id === item.id);
     }
 
-    function pushProductToCart(item){
-        if(findItemInCart(item.id).length){
+    function pushProductToCart(item) {
+        if (findItemInCart(item.id).length) {
             products.deleteCart(item.id);
-        }else{
+        } else {
             products.setCartProduct(item);
         }
         localStorage.setItem('Cart', JSON.stringify(products.cart))
-    } 
+    }
     return (
         <>
             <Row className='products'>

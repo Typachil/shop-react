@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.header{
+.header {
     @extend %display-flex;
     height: 60px;
     width: 100%;
@@ -12,62 +12,63 @@
     background-color: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
 
-    &-nav{
+    &-nav {
         display: flex;
 
-        &__logo{
+        &__logo {
             @extend %display-flex;
             background-color: #FF6969;
             padding: 14px 30px;
             text-decoration: none;
 
-            img{
+            img {
                 height: 33px;
                 width: 39px;
                 padding-right: 7px;
             }
 
-            &-text{
+            &-text {
                 color: #FFFFFF;
             }
         }
-        
-        &__categories{
+
+        &__categories {
             display: flex;
-            justify-content:flex-start;
+            justify-content: flex-start;
             align-items: stretch;
             margin: 0;
             padding-left: 25px;
             list-style: none;
         }
 
-        &__category{
+        &__category {
             display: flex;
             align-items: center;
             text-decoration: none;
             color: #424242;
             margin-right: 45px;
 
-            &_active{
+            &_active {
                 border-bottom: 4px solid rgba(255, 105, 105, 1);
             }
 
-            &:hover{
+            &:hover {
                 border-bottom: 4px solid rgba(255, 105, 105, 0.7);
             }
         }
     }
 
-    &__cart{
+    &__cart {
         padding-right: 30px;
         position: relative;
         cursor: pointer;
-        img{
+
+        img {
             width: 21px;
             height: 21px;
         }
 
-        &-number{
+        &-number {
             position: absolute;
             display: flex;
             justify-content: center;

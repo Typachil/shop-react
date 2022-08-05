@@ -5,17 +5,17 @@ import { observer } from 'mobx-react-lite';
 
 const Header = observer(() => {
     const [showCart, setShowCart] = useState(false);
-    const {products} = useContext(Context);
+    const { products } = useContext(Context);
 
     useEffect(() => {
-        if(localStorage.getItem('Cart')) products.setCart(JSON.parse(localStorage.getItem('Cart')));
-    },[])
+        if (localStorage.getItem('Cart')) products.setCart(JSON.parse(localStorage.getItem('Cart')));
+    }, [])
 
-    function changeCurrentCategory(item){
+    function changeCurrentCategory(item) {
         products.setCurrentСategory(item);
-        products.setCurrentType(products.types.filter(item => item.parent_id == products.currentСategory.id)[0]);
+        products.setCurrentType(products.types.filter(item => item.parent_id === products.currentСategory.id)[0]);
     }
-    
+
     return (
         <div className='header'>
             <div className='header-nav'>
@@ -25,9 +25,9 @@ const Header = observer(() => {
                 </a>
                 <div className='header-nav__categories'>
                     {products.categories.map((item) => {
-                        let {id, name} = item;
+                        let { id, name } = item;
                         let style = 'header-nav__category';
-                        if(id == products.currentСategory.id) style += ' header-nav__category_active';
+                        if (id === products.currentСategory.id) style += ' header-nav__category_active';
 
                         return (
                             <a tabIndex="0" href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></a>

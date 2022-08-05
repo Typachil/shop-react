@@ -1,34 +1,35 @@
-.popup-product{
-    width: 633px;
+.popup-product {
+    min-width: 633px;
     font-weight: 700;
     padding: 16px 14px;
 
-    &__img-large{
+    &__img-large {
         width: 565px;
         height: 340px;
         border-radius: 10px;
         border: 1px solid #E6E6E6;
     }
 
-    &__items{
+    &__items {
         margin-top: 6px;
     }
 
-    &__item{
+    &__item {
         display: flex;
         padding: 22px 0;
         border-bottom: 1px solid #EEEEEE;
-        img{
+
+        img {
             width: 138px;
             height: 97px;
         }
     }
 
-    &__description{
+    &__description {
         padding: 10px 22px;
     }
 
-    &__button{
+    &__button {
         border: none;
         background-color: inherit;
         padding: 7px 0;

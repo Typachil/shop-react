@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react'
+import { useState, useCallback } from 'react'
 
 /**
  * Пользовательский хук, который отправляет запросы с помощью интерфейса Fetch API
@@ -8,7 +8,7 @@ import {useState, useCallback} from 'react'
  * @param {function} clearError - Функция, которая отчищает ошибки
  */
 
-export default function useHttp(){
+export default function useHttp() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
@@ -18,7 +18,7 @@ export default function useHttp(){
         body = JSON.stringify(body);
         headers['Content-Type'] = 'application/json';
       }
-      const response = await fetch(url, {method, body, headers});
+      const response = await fetch(url, { method, body, headers });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || 'Что-то пошло не так')

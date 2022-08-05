@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from "mobx";
 
 /**
  * MobX хранилище состояния сайта
@@ -11,7 +11,7 @@ import {makeAutoObservable} from "mobx";
  * @param {object} _currentType - Текущая подкатегория
  */
 export default class ProductStore {
-    constructor(){
+    constructor() {
         this._categories = [];
         this._types = [];
         this._products = [];
@@ -22,59 +22,59 @@ export default class ProductStore {
         makeAutoObservable(this);
     }
 
-    setСategories(categories){
+    setСategories(categories) {
         this._categories = categories;
     }
 
-    setTypes(types){
+    setTypes(types) {
         this._types = types;
     }
 
-    setProduts(products){
+    setProduts(products) {
         this._products = products;
     }
 
-    setCart(products){
+    setCart(products) {
         this._cart = products;
     }
 
-    setCartProduct(product){
+    setCartProduct(product) {
         this._cart.push(product);
     }
 
-    deleteCart(id){
+    deleteCart(id) {
         this._cart = this._cart.filter(item => id !== item.id);
     }
 
-    setCurrentСategory(category){
+    setCurrentСategory(category) {
         this._currentCategory = category;
     }
 
-    setCurrentType(type){
+    setCurrentType(type) {
         this._currentType = type;
     }
 
-    get categories(){
+    get categories() {
         return this._categories;
     }
 
-    get types(){
+    get types() {
         return this._types;
     }
 
-    get products(){
+    get products() {
         return this._products;
     }
 
-    get cart(){
+    get cart() {
         return this._cart;
     }
 
-    get currentСategory(){
+    get currentСategory() {
         return this._currentCategory;
     }
 
-    get currentType(){
+    get currentType() {
         return this._currentType;
     }
 }

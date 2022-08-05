@@ -19,7 +19,7 @@
             border-color: #FF6969;
         }
 
-        &:hover{
+        &:hover {
             color: #424242b2;
         }
     }
@@ -34,19 +34,19 @@
     .star-rating {
         gap: 4px;
     }
-      
+
     .c-star {
         width: var(--size, 18px);
         height: var(--size, 18px);
         fill: white;
-      
+
         &.active {
-          border-color: #F1C450;
+            border-color: #F1C450;
         }
     }
 
-    &__feedback{
-        .c-star{
+    &__feedback {
+        .c-star {
             cursor: pointer;
         }
     }
@@ -57,15 +57,15 @@
     display: flex;
     margin-bottom: 30px;
 
-    &__rate{
+    &__rate {
         margin-top: 10px;
     }
 
-    &__name{
+    &__name {
         color: #000000;
     }
 
-    &__text{
+    &__text {
         padding: 14px;
         font-size: 14px;
         background-color: #F3F3F3;

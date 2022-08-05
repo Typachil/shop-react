@@ -3,16 +3,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Context } from '.';
 import Header from './components/Header';
 import Main from './components/Main';
-import './css/App.css';
-import './css/header.css';
-import './css/main.css';
-import './css/popupCart.css';
-import './css/popupInfo.css';
+import './sass/App.scss';
+import './sass/header.scss';
+import './sass/main.scss';
+import './sass/popupCart.scss';
+import './sass/popupInfo.scss';
 import { observer } from 'mobx-react-lite';
 import useHttp from './hooks/useHttp';
 
- const App = observer(() => {
-  const {products} = useContext(Context);
+const App = observer(() => {
+  const { products } = useContext(Context);
   const { loading, request, error, clearError } = useHttp();
 
   /**
@@ -26,9 +26,9 @@ import useHttp from './hooks/useHttp';
       products.setProduts(data.filter(item => item.parent_id > 0 && item.props));
 
       products.setCurrentСategory(products.categories[0]);
-      products.setCurrentType(products.types.filter(item => item.parent_id == products.currentСategory.id)[0]);
+      products.setCurrentType(products.types.filter(item => item.parent_id === products.currentСategory.id)[0]);
     });
-  },[])
+  }, [])
 
   return (
     <BrowserRouter>
