@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 
-const Stars = memo(({ rate, setRate = () => { } }) => {
+const Stars = memo(({ rate, setRate = () => { } }, ...attrs) => {
     const rating = [1, 2, 3, 4, 5];
 
     return (
-        <div className='popup-review__rate'>
+        <div className='popup-review__rate' {...attrs}>
             <div style={{ display: "none" }}>
                 <svg style={{ width: 0, height: 0 }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                     <defs>

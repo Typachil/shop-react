@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import CategorySidebar from './CategorySidebar';
 import ProductsPanel from './ProductsPanel';
-import EmptyStub from './EmptyStub';
+import EmptyStub from './UIKit/EmptyStub';
 import { Context } from '..';
 import { observer } from 'mobx-react-lite';
 const Main = observer(() => {

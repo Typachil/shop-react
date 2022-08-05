@@ -136,7 +136,10 @@ code {
     resize: none;
 }
 
-.input_warning {
+.input_warning{
+    border-color: #FF6969 !important;
+}
+
+.label-warning {
     color: #FF6969;
-    font-size: 14px;
 }

@@ -1,15 +1,18 @@
 import { Offcanvas, Tab, Nav } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import Stars from './Stars';
+import Stars from '../UIKit/Stars';
 import useHttp from '../../hooks/useHttp';
-import EmptyStub from '../EmptyStub';
+import EmptyStub from '../UIKit/EmptyStub';
+import useInput from '../../hooks/useInput';
+import Input from '../UIKit/Input';
+import Button from '../UIKit/Button';
 
 const PopupInfo = ({ id, show, onHide }) => {
     const { loading, request, error, clearError } = useHttp();
     const [infoProduct, setInfoProduct] = useState({});
-    const [formName, setFormName] = useState({ name: "", nameValid: true });
-    const [formFeedback, setFormFeedback] = useState({ feedback: "", feedbackValid: true });
-    const [formRate, setFormRate] = useState(0)
+    const [formRate, setFormRate] = useState(0);
+    const name = useInput('', {isEmpty: true });
+    const feedback = useInput('', {isEmpty: true , minLength: 5})
 
     useEffect(() => {
         request(`http://test1.web-gu.ru/?action=show_product&id=${id}`).then(data => setInfoProduct(data));
@@ -17,26 +20,17 @@ const PopupInfo = ({ id, show, onHide }) => {
 
     function submitForm(event) {
         event.preventDefault();
-        setFormName((prev) => ({ ...formName, nameValid: validInput(prev.name) }));
-        setFormFeedback((prev) => ({ ...formFeedback, feedbackValid: validInput(prev.feedback) }));
-        if (formName.nameValid && formFeedback.feedbackValid) {
-            infoProduct.reviews.push({ author: formName.name, avatar: "img/Avatar.png", rate: formRate, text: formFeedback.feedback });
+        name.onBlur();
+        feedback.onBlur();
+        
+        if (name.inputValid && feedback.inputValid) {
+            infoProduct.reviews.push({ author: name.value, avatar: "img/Avatar.png", rate: formRate, text: feedback.value });
             setInfoProduct(infoProduct);
-
+            
+            name.clearValue();
+            feedback.clearValue();
             setFormRate(0);
         }
-    }
-
-    function validInput(value) {
-        return value.length > 0;
-    }
-
-    function changeFormName(event) {
-        setFormName({ 'name': event.target.value, 'nameValid': validInput(event.target.value) });
-    }
-
-    function changeFormFeedback(event) {
-        setFormFeedback({ 'feedback': event.target.value, 'feedbackValid': validInput(event.target.value) });
     }
 
     return (
@@ -97,34 +91,30 @@ const PopupInfo = ({ id, show, onHide }) => {
                                 <Tab.Pane className='popup-tabs__feedback' eventKey="feedback">
                                     <form className='form-popup mt-2' onSubmit={submitForm}>
                                         <div>
-                                            <div>
-                                                Оценка
-                                            </div>
+                                            <div>Оценка</div>
                                             <Stars rate={formRate} setRate={setFormRate} />
                                         </div>
                                         <div>
                                             <label className='w-100'>
-                                                <div>
-                                                    Имя
-                                                </div>
-                                                <input type='text' name='name' className='input-name'
-                                                    value={formName.name} onChange={changeFormName} style={{ borderColor: !formName.nameValid && '#FF6969' }} />
-                                                {!formName.nameValid && <div className='input_warning'>Имя не должно быть пустым</div>}
+                                                <div>Имя</div>
+                                                <Input name='name' type='text' useInputData={name}/>
+                                                {name.isDirty && name.isEmpty && <div className='label-warning'>Имя не должно быть пустым</div>}
                                             </label>
                                         </div>
                                         <div className='mt-3'>
                                             <label className='w-100'>
-                                                <div>
-                                                    Отзыв
-                                                </div>
+                                                <div>Отзыв</div>
                                                 <textarea className='input-feedback' name='feedback'
-                                                    defaultValue={formFeedback.feedback} onChange={changeFormFeedback}
-                                                    style={{ borderColor: !formFeedback.feedbackValid && '#FF6969' }}>
+                                                    value={feedback.value} 
+                                                    onBlur={e => feedback.onBlur(e)} 
+                                                    onChange={e => feedback.onChange(e)}
+                                                    style={{ borderColor: feedback.isDirty && !feedback.inputValid && '#FF6969' }}>
                                                 </textarea>
-                                                {!formFeedback.feedbackValid && <div className='input_warning'>Отзыв не должен быть пустым</div>}
+                                                {feedback.isDirty && feedback.isEmpty && <div className='label-warning'>Отзыв не должен быть пустым</div>}
+                                                {feedback.isDirty && feedback.minLengthError && <div className='label-warning'>Отзыв должен содержать больше 5 символов</div>}
                                             </label>
                                         </div>
-                                        <button className='product-card__button'>Отправить отзыв</button>
+                                        <Button classes={'product-card__button'}>Отправить отзыв</Button>
                                     </form>
                                 </Tab.Pane>
                             </Tab.Content>

@@ -3,6 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { Context } from '..';
 import PopupInfo from './Popups/PopupInfo';
 import { observer } from 'mobx-react-lite';
+import Button from './UIKit/Button';
 
 const ProductsPanel = observer(({ productsArray }) => {
     const { products } = useContext(Context);
@@ -39,9 +40,9 @@ const ProductsPanel = observer(({ productsArray }) => {
                             <div className='product-card__description'>
                                 <div className='product-card__name' onClick={() => changeShowInfo(id)}>{name}</div>
                                 <div className='product-card__price'>{price} &nbsp;</div>
-                                <button onClick={() => pushProductToCart(item)} className='product-card__button'>
-                                    {!findItemInCart(item.id).length ? "Добавить в корзину" : <div>В корзине <img src="img/Vector_small.png"></img></div>}
-                                </button>
+                                <Button onClick={() => pushProductToCart(item)} classes='product-card__button'>
+                                    {!findItemInCart(item.id).length ? "Добавить в корзину" : <div>В корзине <img src="img/Vector_small.png" alt="Vector"></img></div>}
+                                </Button>
                             </div>
                         </Col>
                     )

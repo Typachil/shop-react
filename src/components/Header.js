@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '..';
 import PopupCart from './Popups/PopupCart';
 import { observer } from 'mobx-react-lite';
+import { NavLink } from 'react-bootstrap';
 
 const Header = observer(() => {
     const [showCart, setShowCart] = useState(false);
@@ -19,10 +20,10 @@ const Header = observer(() => {
     return (
         <div className='header'>
             <div className='header-nav'>
-                <a href='#' className='header-nav__logo'>
+                <NavLink href='#' className='header-nav__logo'>
                     <img src='img/Logo.png' alt="Лого"></img>
                     <div className='header-nav__logo-text'>SHOP</div>
-                </a>
+                </NavLink>
                 <div className='header-nav__categories'>
                     {products.categories.map((item) => {
                         let { id, name } = item;
@@ -30,15 +31,15 @@ const Header = observer(() => {
                         if (id === products.currentСategory.id) style += ' header-nav__category_active';
 
                         return (
-                            <a tabIndex="0" href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></a>
+                            <NavLink tabIndex="0" href='#' key={id} className={style} onClick={() => changeCurrentCategory(item)}><div className='header-nav__text'>{name}</div></NavLink>
                         )
                     })}
                 </div>
             </div>
-            <a tabIndex="1" className='header__cart' onClick={() => setShowCart(!showCart)}>
+            <button tabIndex="1" className='header__cart' onClick={() => setShowCart(!showCart)}>
                 <img src="img/Cart.png" alt="Корзина"></img>
                 {!products.cart.length || <div className='header__cart-number'>{products.cart.length}</div>}
-            </a>
+            </button>
             <PopupCart show={showCart} onHide={() => setShowCart(!showCart)} />
         </div>
     )
