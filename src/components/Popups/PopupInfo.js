@@ -35,7 +35,7 @@ const PopupInfo = ({ id, show, onHide }) => {
 
     return (
         <>
-            <Offcanvas className='popup-product' show={show} onHide={onHide} placement={'end'}>
+            <Offcanvas className='popup-product' show={show} onHide={() => onHide(false)} placement={'end'}>
                 <Offcanvas.Header closeButton>
                     Информация
                 </Offcanvas.Header>
