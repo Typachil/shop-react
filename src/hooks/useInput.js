@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useValidation = (value, validations) => {
     const [isEmpty, setEmpty] = useState(true);
@@ -23,7 +23,7 @@ const useValidation = (value, validations) => {
                     break;
             }
         }
-    }, [value])
+    }, [value, validations])
 
     useEffect(() => {
         if (isEmpty || minLengthError || telError) {

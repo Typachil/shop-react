@@ -3,7 +3,7 @@ import React from 'react'
 export default function Input({ classes, useInputData, name, ...attrs }) {
 
     let computedClasses = `input-${name}`;
-    if(useInputData.isDirty && !useInputData.inputValid){
+    if (useInputData.isDirty && !useInputData.inputValid) {
         computedClasses += ' input_warning'
     }
     if (classes) computedClasses += ' ' + classes

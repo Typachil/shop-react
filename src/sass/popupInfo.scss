@@ -57,8 +57,15 @@
     display: flex;
     margin-bottom: 30px;
 
-    &__rate {
-        margin-top: 10px;
+    &__block-top {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__avatar {
+        img {
+            border-radius: 50%;
+        }
     }
 
     &__name {
@@ -66,6 +73,7 @@
     }
 
     &__text {
+        margin-top: 7px;
         padding: 14px;
         font-size: 14px;
         background-color: #F3F3F3;

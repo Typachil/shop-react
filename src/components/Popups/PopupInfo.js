@@ -8,25 +8,25 @@ import Input from '../UIKit/Input';
 import Button from '../UIKit/Button';
 
 const PopupInfo = ({ id, show, onHide }) => {
-    const { loading, request, error, clearError } = useHttp();
+    const { loading, request } = useHttp();
     const [infoProduct, setInfoProduct] = useState({});
     const [formRate, setFormRate] = useState(0);
-    const name = useInput('', {isEmpty: true });
-    const feedback = useInput('', {isEmpty: true , minLength: 5})
+    const name = useInput('', { isEmpty: true });
+    const feedback = useInput('', { isEmpty: true, minLength: 5 })
 
     useEffect(() => {
         request(`http://test1.web-gu.ru/?action=show_product&id=${id}`).then(data => setInfoProduct(data));
-    }, [id]);
+    }, [id, request]);
 
     function submitForm(event) {
         event.preventDefault();
         name.onBlur();
         feedback.onBlur();
-        
+
         if (name.inputValid && feedback.inputValid) {
             infoProduct.reviews.push({ author: name.value, avatar: "img/Avatar.png", rate: formRate, text: feedback.value });
             setInfoProduct(infoProduct);
-            
+
             name.clearValue();
             feedback.clearValue();
             setFormRate(0);
@@ -75,11 +75,11 @@ const PopupInfo = ({ id, show, onHide }) => {
                                         let { author, avatar, rate, text } = item;
                                         return (
                                             <div className='popup-review' key={index}>
-                                                <div className='me-2'>
+                                                <div className='me-2 popup-review__avatar'>
                                                     <img src={avatar} alt='avatar' />
                                                 </div>
                                                 <div style={{ width: "100%" }}>
-                                                    <div className='d-flex justify-content-between'>
+                                                    <div className='popup-review__block-top'>
                                                         <div className='popup-review__name'>{author}</div>
                                                         <Stars rate={rate} />
                                                     </div>
@@ -90,14 +90,14 @@ const PopupInfo = ({ id, show, onHide }) => {
                                 </Tab.Pane>
                                 <Tab.Pane className='popup-tabs__feedback' eventKey="feedback">
                                     <form className='form-popup mt-2' onSubmit={submitForm}>
-                                        <div>
-                                            <div>Оценка</div>
+                                        <div className='mb-3'>
+                                            <div className='mb-2'>Оценка</div>
                                             <Stars rate={formRate} setRate={setFormRate} />
                                         </div>
                                         <div>
                                             <label className='w-100'>
                                                 <div>Имя</div>
-                                                <Input name='name' type='text' useInputData={name}/>
+                                                <Input name='name' type='text' useInputData={name} />
                                                 {name.isDirty && name.isEmpty && <div className='label-warning'>Имя не должно быть пустым</div>}
                                             </label>
                                         </div>
@@ -105,8 +105,8 @@ const PopupInfo = ({ id, show, onHide }) => {
                                             <label className='w-100'>
                                                 <div>Отзыв</div>
                                                 <textarea className='input-feedback' name='feedback'
-                                                    value={feedback.value} 
-                                                    onBlur={e => feedback.onBlur(e)} 
+                                                    value={feedback.value}
+                                                    onBlur={e => feedback.onBlur(e)}
                                                     onChange={e => feedback.onChange(e)}
                                                     style={{ borderColor: feedback.isDirty && !feedback.inputValid && '#FF6969' }}>
                                                 </textarea>

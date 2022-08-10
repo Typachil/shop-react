@@ -1,9 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Context } from '..';
 import PopupInfo from './Popups/PopupInfo';
-import { observer } from 'mobx-react-lite';
-import Button from './UIKit/Button';
 import CardProduct from './UIKit/CardProduct';
 
 const ProductsPanel = ({ productsArray }) => {
@@ -12,7 +9,7 @@ const ProductsPanel = ({ productsArray }) => {
 
     function changeShowInfo(id) {
         setShowInfo(!showInfo);
-        setProductId(id)
+        setProductId(id);
     }
 
     return (
@@ -21,13 +18,15 @@ const ProductsPanel = ({ productsArray }) => {
                 {productsArray.map((item) => {
                     let { id } = item;
                     return (
-                        <CardProduct key={id} onClick={() => changeShowInfo(id)} item={item}/>
-                    )
+                        <Col xl={6} xxl={4} lg={6} md={12} className='products__item' key={id}>
+                            <CardProduct onClick={() => changeShowInfo(id)} item={item} />
+                        </Col>
+                    );
                 })}
             </Row>
             <PopupInfo id={productId} show={showInfo} onHide={setShowInfo} />
         </>
-    )
+    );
 };
 
 export default ProductsPanel;

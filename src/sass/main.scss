@@ -7,12 +7,16 @@ code {
     padding-top: 60px;
     display: flex;
     background-color: #F8F8F8;
-    min-height: 900px;
+    min-height: 100vh;
+
+    @media (max-width: 990px) {
+        flex-direction: column;
+    }
+
 }
 
 .column-category {
-    width: 325px;
-    min-width: 140px;
+    min-width: 15vw;
     background-color: #FFFFFF;
     align-self: stretch;
 
@@ -52,16 +56,18 @@ code {
     margin: 55px 0 0 35px;
     flex-grow: 1;
 
-    &__card {
-        background-color: #FFFFFF;
-        padding: 0;
+    &__item {
+        max-width: 353px;
+        margin: 0 1vw 20px 0;
+    }
+
+    @media (max-width: 990px) {
+        justify-content: center;
     }
 }
 
 .product-card {
     border-radius: 10px;
-    max-width: 353px;
-    margin: 0 3vw 20px 0;
 
     &__description {
         background-color: #FFFFFF;
@@ -136,7 +142,7 @@ code {
     resize: none;
 }
 
-.input_warning{
+.input_warning {
     border-color: #FF6969 !important;
 }
 
