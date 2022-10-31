@@ -3,9 +3,9 @@ import { Context } from '../..';
 import Button from './Button';
 import { observer } from 'mobx-react-lite';
 
-const CardProduct = observer(({ item, onClick, ...attrs }) => {
+const CardProduct = observer(({item, onClick, ...attrs}) => {
     let { id, img, name, price } = item;
-    let { products } = useContext(Context);
+    let {products} = useContext(Context);
 
     function findItemInCart(id) {
         return products.cart.filter(item => id === item.id);
